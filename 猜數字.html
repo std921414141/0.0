@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>終極密碼</title>
+    
+    <script type="text/javascript" charset="ui">
+      window.onload = newgame;
+      window.onpopstate = popState; 
+      var state, ui;  
+       console.log("哈哈，這裡沒有答案");
+      function newgame(playagain) {
+        ui = {
+          heading: null, 
+          prompt: null, 
+          input: null,
+          low: null, 
+          mid: null, 
+          high: null,
+        };
+          //希望老師可以讓我通過這門課
+        for(var id in ui) ui[id] = document.getElementById(id);
+        ui.input.onchange = handleGuess;
+        state = {
+          n: Math.floor(99 * Math.random())+1,
+          low: 0,
+          high: 100, 
+          guessnum: 0,
+          guess: undefined
+            //希望老師可以讓我通過這門課OAO
+        };
+        display(state);
+        if (playagain === true)save(state);
+          //希望老師可以讓我通過這門課OAQ
+      }
+      function save(state) {
+        if (!history.pushState) return;
+        var url = "#guess" + state.guessnum;
+        history.pushState(state,null,url);
+          //希望老師可以讓我通過這門課UWU
+           }
+      function popState(event) {
+        if (event.state) {
+          state = event.state; display(state);
+        }else{
+          history.replaceState(state, null, "#guess" + state.guessnum);
+        }
+      };
+        //希望老師可以讓我通過這門課EWE
+      function handleGuess() {
+         //希望老師可以讓我通過這門課
+        var g = parseInt(this.value);
+          //希望老師可以讓我通過這門課AWA
+        if ((g > state.low) && (g < state.high)) {
+          
+          if (g < state.n) state.low =g;
+          else if (g > state.n) state.high = g;
+          state.guess = g;
+          state.guessnum++;
+          
+          save(state);
+          
+          display(state);
+        }else{
+          
+          alert("請輸入大於" + state.low + "和小於" + state.high);
+        }
+      }
+        //希望老師可以讓我通過這門課OWO
+      function display(state) {
+        
+        ui.heading.innerHTML = document.title ="請輸入" + state.low + "到" + state.high + "之間的數字";
+
+       
+        ui.low.style.width = state.low + "%";
+        ui.mid.style.width = (state.high-state.low) + "%";
+        ui.high.style.width = (100-state.high) + "%";
+
+        
+        ui.input.style.visibility = "visible";
+        ui.input.value = null;
+        ui.input.focus();
+
+        //希望老師可以讓我通過這門課WW
+        if (state.guess === undefined)
+          ui.prompt.innerHTML = "請輸入你要猜的數字：";
+        else if (state.guess < state.n)
+          ui.prompt.innerHTML ="比"+ state.guess + "高一些，再猜一次吧：";
+        else if (state.guess > state.n)
+          ui.prompt.innerHTML ="比" +state.guess + "低一些，再猜一次吧：";
+        else {
+          ui.input.style.visibility = "hidden";
+          ui.heading.innerHTML = document.title = state.guess + "正確";
+          ui.prompt.innerHTML = "你赢了 <button onclick='newgame(true)'>再玩一次</button>";
+         //希望老師可以讓我通過這門課>W<
+          }
+      }
+    </script>
+    <style>
+      
+      #prompt { font-size: 16pt;}
+      table { width: 90%; margin:10px; margin-left:5%;}
+      #low, #high { background-color:#99FFFF; height:4em; }
+      #mid { background-color:#AAAAAA;}
+    </style>
+  </head>
+  <body>
+    <h1 id="heading">我在想一個數字</h1>
+    <table>
+      <tr>
+        <td id="low"></td>
+        <td id="mid"></td>
+        <td id="high"></td>
+      </tr>
+    </table>
+    <label id="prompt"></label>
+    <input id="input" type="text">
+  <DIV>
+
+  </body>
+</html
